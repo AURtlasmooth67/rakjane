@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>โต้ขอโทษนะ เจน 💕</title>
+
+  <!-- ===== Google Fonts ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================
+       ROOT VARIABLES & RESET
+    ========================================= */
+    :root {
+      --pink-light:   #ffe4ec;
+      --pink-mid:     #ffb3cb;
+      --pink-dark:    #ff6f9c;
+      --pink-deep:    #e91e8c;
+      --cream:        #fff9f4;
+      --cream-dark:   #ffecd2;
+      --text-dark:    #5a2d4a;
+      --text-mid:     #8b4d6d;
+      --shadow:       rgba(255, 111, 156, 0.25);
+      --font-main:    'Mali', 'Sarabun', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-main);
+      background: linear-gradient(160deg, var(--pink-light) 0%, var(--cream) 50%, var(--cream-dark) 100%);
+      min-height: 100vh;
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* =========================================
+       FLOATING HEARTS BACKGROUND
+    ========================================= */
+    #hearts-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .float-heart {
+      position: absolute;
+      bottom: -60px;
+      font-size: 1.6rem;
+      animation: floatUp linear infinite;
+      opacity: 0;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(0) rotate(-10deg); opacity: 0; }
+      10%  { opacity: 0.8; }
+      90%  { opacity: 0.6; }
+      100% { transform: translateY(-110vh) rotate(10deg); opacity: 0; }
+    }
+
+    /* =========================================
+       MUSIC TOGGLE BUTTON
+    ========================================= */
+    #music-btn {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 999;
+      background: white;
+      border: 2px solid var(--pink-dark);
+      color: var(--pink-dark);
+      border-radius: 50%;
+      width: 46px;
+      height: 46px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      box-shadow: 0 3px 12px var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s, background 0.2s;
+    }
+    #music-btn:hover { background: var(--pink-light); transform: scale(1.1); }
+
+    /* =========================================
+       PAGE WRAPPER
+    ========================================= */
+    .page-wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 16px 60px;
+    }
+
+    /* =========================================
+       SECTION 1: HERO
+    ========================================= */
+    #hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 20px;
+      padding: 70px 0 32px;
+    }
+    .hero-emoji {
+      font-size: 5rem;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.12); }
+    }
+    .hero-title {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--pink-deep);
+      line-height: 1.3;
+      text-shadow: 0 2px 8px var(--shadow);
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-mid);
+      font-weight: 300;
+    }
+
+    /* =========================================
+       SECTION 2: FORGIVE BUTTONS
+    ========================================= */
+    #forgive-section {
+      background: white;
+      border-radius: 28px;
+      padding: 36px 24px;
+      box-shadow: 0 8px 32px var(--shadow);
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .forgive-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 28px;
+    }
+    .btn-row {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      min-height: 80px;
+      position: relative;
+    }
+
+    /* ✅ Forgive button */
+    #btn-yes {
+      background: linear-gradient(135deg, var(--pink-dark), var(--pink-deep));
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 32px;
+      font-family: var(--font-main);
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 18px var(--shadow);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    #btn-yes:hover { transform: scale(1.05); box-shadow: 0 6px 24px var(--shadow); }
+    #btn-yes:active { transform: scale(0.97); }
+
+    /* ❌ Run-away "No" button */
+    #btn-no {
+      background: white;
+      color: var(--text-mid);
+      border: 2px solid var(--pink-mid);
+      border-radius: 50px;
+      padding: 14px 32px;
+      font-family: var(--font-main);
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s, font-size 0.2s;
+      position: fixed; /* escapes layout flow */
+      white-space: nowrap;
+      z-index: 900;
+    }
+
+    /* =========================================
+       SECTION 3: CELEBRATION
+    ========================================= */
+    #celebrate-section {
+      display: none;
+      background: linear-gradient(135deg, #fff0f6, #fff9f4);
+      border-radius: 28px;
+      padding: 40px 24px;
+      box-shadow: 0 8px 32px var(--shadow);
+      text-align: center;
+      margin-bottom: 28px;
+      animation: fadeSlideIn 0.6s ease;
+    }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .celebrate-emoji { font-size: 3.5rem; display: block; margin-bottom: 16px; }
+    .celebrate-text {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--pink-deep);
+      line-height: 1.6;
+    }
+
+    /* Confetti canvas */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 998;
+    }
+
+    /* =========================================
+       SECTION 4: TYPEWRITER LETTER
+    ========================================= */
+    #letter-section {
+      background: white;
+      border-radius: 28px;
+      padding: 32px 24px;
+      box-shadow: 0 8px 32px var(--shadow);
+      margin-bottom: 28px;
+      position: relative;
+    }
+    .letter-deco {
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.2rem;
+    }
+    .letter-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--pink-deep);
+      text-align: center;
+      margin-bottom: 20px;
+      margin-top: 10px;
+    }
+    .letter-body {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--text-dark);
+      font-weight: 300;
+      min-height: 120px;
+    }
+    /* Blinking cursor */
+    #cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: var(--pink-deep);
+      vertical-align: text-bottom;
+      animation: blink 0.7s step-end infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    /* =========================================
+       SECTION 5: MEMORY GALLERY
+    ========================================= */
+    #gallery-section { margin-bottom: 28px; }
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--pink-deep);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .gallery-item {
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px var(--shadow);
+      aspect-ratio: 1 / 1;
+      background: var(--pink-light);
+      position: relative;
+      transition: transform 0.25s;
+    }
+    .gallery-item:hover { transform: scale(1.04); }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255,111,156,0.75);
+      color: white;
+      font-size: 0.78rem;
+      text-align: center;
+      padding: 6px 4px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* =========================================
+       SECTION 6: RELATIONSHIP TIMER
+    ========================================= */
+    #timer-section {
+      background: linear-gradient(135deg, var(--pink-mid), var(--pink-dark));
+      border-radius: 28px;
+      padding: 32px 24px;
+      box-shadow: 0 8px 32px var(--shadow);
+      text-align: center;
+      margin-bottom: 28px;
+      color: white;
+    }
+    .timer-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+      opacity: 0.9;
+    }
+    .timer-boxes {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .timer-box {
+      background: rgba(255,255,255,0.25);
+      border-radius: 14px;
+      padding: 12px 14px;
+      min-width: 68px;
+      backdrop-filter: blur(6px);
+    }
+    .timer-num {
+      font-size: 2rem;
+      font-weight: 700;
+      display: block;
+      line-height: 1;
+    }
+    .timer-label {
+      font-size: 0.75rem;
+      opacity: 0.85;
+      margin-top: 4px;
+    }
+
+    /* =========================================
+       FOOTER
+    ========================================= */
+    footer {
+      text-align: center;
+      color: var(--text-mid);
+      font-size: 0.85rem;
+      padding-top: 10px;
+      opacity: 0.7;
+    }
+
+    /* =========================================
+       RESPONSIVE
+    ========================================= */
+    @media (max-width: 360px) {
+      .hero-title { font-size: 2rem; }
+      .timer-num  { font-size: 1.6rem; }
+      .timer-box  { min-width: 56px; padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== Floating hearts background ===== -->
+<div id="hearts-bg"></div>
+
+<!--
+  🎵 เพลงพื้นหลัง
+  ✏️ วิธีเปลี่ยนเพลง: แก้ src ใน <source> ด้านล่าง
+  เช่น ใส่ไฟล์ MP3 ไว้ในโฟลเดอร์เดียวกัน แล้วเปลี่ยนเป็น src="song.mp3"
+-->
+<audio id="bg-music" loop>
+  <!--
+    ✏️ เปลี่ยน YOUR_SONG.mp3 เป็นชื่อไฟล์เพลงที่วางไว้โฟลเดอร์เดียวกัน
+    เช่น: src="song.mp3"  หรือ  src="love.mp3"
+    ⚠️ YouTube URL ใช้ที่นี่ไม่ได้ ต้องเป็นไฟล์ MP3 เท่านั้น
+  -->
+  <source src="Paul Partohap - P.S. I LOVE YOU (Lyric Video).mp3" type="audio/mpeg" />
+</audio>
+
+<!-- ===== Music toggle button ===== -->
+<button id="music-btn" title="เปิด/ปิดเพลง" aria-label="toggle music">🎵</button>
+
+<!-- ===== Confetti canvas ===== -->
+<canvas id="confetti-canvas"></canvas>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="page-wrapper">
+
+  <!-- ─────────────────────────────────────────
+       SECTION 1: HERO
+  ───────────────────────────────────────── -->
+  <!-- ─────────────────────────────────────────
+       SECTION 1+2: HERO + ปุ่มให้อภัย (อยู่หน้าแรก)
+  ───────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-emoji">💌</div>
+    <!--
+      ✏️ แก้ชื่อ/ข้อความหลักได้ที่นี่
+    -->
+    <h1 class="hero-title">โต้ขอโทษนะ เจน 🥺</h1>
+    <p class="hero-sub">วันนี้มาช้า ขอโทษจริงๆ นะ 💕</p>
+
+    <!-- ✏️ แก้ข้อความถามได้ที่นี่ -->
+    <div id="forgive-section" style="background:white;border-radius:28px;padding:32px 24px;box-shadow:0 8px 32px var(--shadow);width:100%;">
+      <p class="forgive-title">เจนให้อภัยโต้ไหม? 🙏</p>
+      <div class="btn-row" id="btn-row">
+        <button id="btn-yes" onclick="celebrate()">ให้อภัย 💖</button>
+        <button id="btn-no"  onclick="shrinkNo()">ไม่ให้ 😤</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       SECTION 3: CELEBRATION (ซ่อนไว้ก่อน)
+  ───────────────────────────────────────── -->
+  <section id="celebrate-section">
+    <span class="celebrate-emoji">🎉🎊🥳</span>
+    <!--
+      ✏️ แก้ข้อความหลังให้อภัยได้ที่นี่
+    -->
+    <p class="celebrate-text">ขอบคุณนะคะที่ให้โอกาสเค้า ❤️<br/>โต้จะไม่ทำให้เจนผิดหวังอีกแล้ว!</p>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       SECTION 4: LETTER (TYPEWRITER)
+  ───────────────────────────────────────── -->
+  <section id="letter-section">
+    <div class="letter-deco">💌</div>
+    <h2 class="letter-title">จดหมายจากโต้ถึงเจน</h2>
+    <div class="letter-body" id="letter-body">
+      <span id="typed-text"></span><span id="cursor"></span>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       SECTION 5: MEMORY GALLERY
+  ───────────────────────────────────────── -->
+  <section id="gallery-section">
+    <h2 class="section-title">📸 ความทรงจำของเรา</h2>
+    <div class="gallery-grid">
+      <!--
+        ✏️ เปลี่ยนรูปได้ที่ src="..."
+        เช่น src="photo1.jpg" (วางไฟล์ไว้ในโฟลเดอร์เดียวกัน)
+        ✏️ เปลี่ยน caption ได้ใน class="gallery-caption"
+      -->
+      <div class="gallery-item">
+        <img src="https://placehold.co/400x400/ffb3cb/fff?text=📷+รูปที่+1" alt="ความทรงจำที่ 1" />
+        <div class="gallery-caption">วันแรกที่เจอกัน ✨</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://placehold.co/400x400/ffc4d6/fff?text=📷+รูปที่+2" alt="ความทรงจำที่ 2" />
+        <div class="gallery-caption">วันเที่ยวด้วยกัน 🌸</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://placehold.co/400x400/ffd6e7/fff?text=📷+รูปที่+3" alt="ความทรงจำที่ 3" />
+        <div class="gallery-caption">วันกินข้าวอร่อยๆ 🍜</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://placehold.co/400x400/ffe4ec/fff?text=📷+รูปที่+4" alt="ความทรงจำที่ 4" />
+        <div class="gallery-caption">ทุกวันที่มีเจน 💕</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       SECTION 6: RELATIONSHIP TIMER
+  ───────────────────────────────────────── -->
+  <section id="timer-section">
+    <p class="timer-title">💑 เราคบกันมาแล้ว...</p>
+    <div class="timer-boxes">
+      <div class="timer-box">
+        <span class="timer-num" id="t-years">0</span>
+        <div class="timer-label">ปี</div>
+      </div>
+      <div class="timer-box">
+        <span class="timer-num" id="t-months">0</span>
+        <div class="timer-label">เดือน</div>
+      </div>
+      <div class="timer-box">
+        <span class="timer-num" id="t-days">0</span>
+        <div class="timer-label">วัน</div>
+      </div>
+      <div class="timer-box">
+        <span class="timer-num" id="t-hours">0</span>
+        <div class="timer-label">ชั่วโมง</div>
+      </div>
+      <div class="timer-box">
+        <span class="timer-num" id="t-mins">0</span>
+        <div class="timer-label">นาที</div>
+      </div>
+      <div class="timer-box">
+        <span class="timer-num" id="t-secs">0</span>
+        <div class="timer-label">วินาที</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>made with 💗 by โต้ เพื่อเจน</footer>
+
+</div><!-- end .page-wrapper -->
+
+<script>
+  /* =====================================================
+     ✏️ ตั้งค่าหลัก – แก้ได้ที่นี่
+  ===================================================== */
+
+  // ✏️ วันที่เริ่มคบกัน (ปี-เดือน-วัน)
+  const START_DATE = new Date("2025-11-09T00:00:00"); // 09/11/68 (พ.ศ. 2568)
+
+  // ✏️ เนื้อหาจดหมายขอโทษ (แก้ข้อความได้ตามใจ)
+  const LETTER_TEXT =
+`เจนที่รักของโต้ 💕
+
+วันนี้โต้รู้ว่าตัวเองผิดที่ทำให้เจนรอ โต้ขอโทษจากใจจริงๆ นะ
+เพราะโต้รู้ว่าเจนรอโต้มานานแค่ไหน และเวลาของเจนมีค่าสำหรับโต้เสมอ
+
+โต้สัญญาว่าครั้งหน้าจะตั้งใจมาให้ทันเวลา
+ไม่ปล่อยให้เจนต้องรอคนเดียวอีกแล้วนะ
+
+เจนเป็นคนสำคัญที่สุดในชีวิตโต้
+โต้รักเจนมากกว่าอะไรทั้งหมดเลย ❤️`;
+
+  /* =====================================================
+     FLOATING HEARTS
+  ===================================================== */
+  const heartEmojis = ["💕","💖","💗","💓","💞","🌸","✨","💝"];
+  const heartsBg    = document.getElementById("hearts-bg");
+
+  function spawnHeart() {
+    const el = document.createElement("span");
+    el.className   = "float-heart";
+    el.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+    el.style.left            = Math.random() * 100 + "vw";
+    el.style.fontSize        = (1 + Math.random() * 1.5) + "rem";
+    const dur                = 5 + Math.random() * 6;
+    el.style.animationDuration = dur + "s";
+    el.style.animationDelay    = Math.random() * 3 + "s";
+    heartsBg.appendChild(el);
+    setTimeout(() => el.remove(), (dur + 3) * 1000);
+  }
+
+  setInterval(spawnHeart, 700);
+  for (let i = 0; i < 6; i++) spawnHeart(); // initial burst
+
+  /* =====================================================
+     MUSIC TOGGLE
+  ===================================================== */
+  const music    = document.getElementById("bg-music");
+  const musicBtn = document.getElementById("music-btn");
+
+  musicBtn.addEventListener("click", () => {
+    if (music.paused) {
+      music.play().catch(() => {});
+      musicBtn.textContent = "🔇";
+    } else {
+      music.pause();
+      musicBtn.textContent = "🎵";
+    }
+  });
+
+  /* =====================================================
+     RUN-AWAY "NO" BUTTON
+  ===================================================== */
+  const btnNo = document.getElementById("btn-no");
+  let noClickCount = 0;
+  let noBtnScale   = 1;
+
+  // Position the No button in screen center initially
+  function initNoBtn() {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    btnNo.style.left = Math.max(20, (vw / 2) + 30) + "px";
+    btnNo.style.top  = Math.max(20, (vh / 2)) + "px";
+  }
+  initNoBtn();
+
+  // Escape when cursor/finger gets close
+  function escapeNo(clientX, clientY) {
+    const rect  = btnNo.getBoundingClientRect();
+    const btnCX = rect.left + rect.width  / 2;
+    const btnCY = rect.top  + rect.height / 2;
+    const dist  = Math.hypot(btnCX - clientX, btnCY - clientY);
+
+    const threshold = 140 * noBtnScale;
+    if (dist < threshold) {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      // Pick a random corner far from cursor
+      const margin = 24;
+      const candidates = [
+        { x: margin,          y: margin          },
+        { x: vw - 140,        y: margin          },
+        { x: margin,          y: vh - 80         },
+        { x: vw - 140,        y: vh - 80         },
+        { x: vw * 0.5 - 50,  y: margin          },
+        { x: vw * 0.5 - 50,  y: vh - 80         },
+      ];
+      // Choose the candidate farthest from current cursor position
+      let best = candidates[0], bestDist = 0;
+      candidates.forEach(c => {
+        const d = Math.hypot(c.x - clientX, c.y - clientY);
+        if (d > bestDist) { bestDist = d; best = c; }
+      });
+      btnNo.style.left = best.x + "px";
+      btnNo.style.top  = best.y + "px";
+    }
+  }
+
+  document.addEventListener("mousemove", e => escapeNo(e.clientX, e.clientY));
+  document.addEventListener("touchmove", e => {
+    escapeNo(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+
+  // Shrink on click
+  const noLabels = ["ไม่ให้ 😤","อย่าเลย 🙅","ไม่ได้! 😠","อย่านะ~ 🥺","..."];
+  function shrinkNo() {
+    noClickCount++;
+    noBtnScale = Math.max(0.25, 1 - noClickCount * 0.15);
+    btnNo.style.transform = `scale(${noBtnScale})`;
+    btnNo.style.opacity   = Math.max(0.3, 1 - noClickCount * 0.1);
+    btnNo.textContent     = noLabels[Math.min(noClickCount, noLabels.length - 1)];
+    // Bounce to random spot
+    const vw = window.innerWidth, vh = window.innerHeight;
+    btnNo.style.left = (20 + Math.random() * (vw - 150)) + "px";
+    btnNo.style.top  = (20 + Math.random() * (vh - 100)) + "px";
+  }
+
+  /* =====================================================
+     CELEBRATE + CONFETTI
+  ===================================================== */
+  function celebrate() {
+    // Show celebration, hide forgive section
+    document.getElementById("forgive-section").style.display = "none";
+    btnNo.style.display = "none";
+    const sec = document.getElementById("celebrate-section");
+    sec.style.display = "block";
+    sec.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    // Fire confetti 3 bursts
+    launchConfetti();
+    setTimeout(launchConfetti, 1000);
+    setTimeout(launchConfetti, 2000);
+  }
+
+  /* --- Confetti engine --- */
+  const canvas = document.getElementById("confetti-canvas");
+  const ctx    = canvas.getContext("2d");
+  let confettiParticles = [];
+  let confettiRunning   = false;
+
+  function resizeCanvas() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener("resize", resizeCanvas);
+
+  function launchConfetti() {
+    const colors = ["#ff6f9c","#ffb3cb","#ffd6e7","#fff0f6","#e91e8c","#ff4081","#c2185b","#ff80ab","#ffd700","#fff"];
+    for (let i = 0; i < 140; i++) {
+      confettiParticles.push({
+        x:     Math.random() * canvas.width,
+        y:     -10 - Math.random() * 80,
+        vx:    (Math.random() - 0.5) * 5,
+        vy:    2 + Math.random() * 5,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        size:  6 + Math.random() * 9,
+        rot:   Math.random() * 360,
+        rotV:  (Math.random() - 0.5) * 8,
+        shape: Math.random() > 0.5 ? "rect" : "circle",
+        alpha: 1,
+      });
+    }
+    if (!confettiRunning) animateConfetti();
+  }
+
+  function animateConfetti() {
+    confettiRunning = true;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    confettiParticles = confettiParticles.filter(p => p.alpha > 0.04);
+
+    confettiParticles.forEach(p => {
+      p.x   += p.vx;
+      p.y   += p.vy;
+      p.rot += p.rotV;
+      p.vy  += 0.09; // gravity
+      if (p.y > canvas.height * 0.65) p.alpha -= 0.012;
+
+      ctx.save();
+      ctx.globalAlpha = p.alpha;
+      ctx.fillStyle   = p.color;
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI / 180);
+      if (p.shape === "rect") {
+        ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+      } else {
+        ctx.beginPath();
+        ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+    });
+
+    if (confettiParticles.length > 0) {
+      requestAnimationFrame(animateConfetti);
+    } else {
+      confettiRunning = false;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+
+  /* =====================================================
+     TYPEWRITER EFFECT
+  ===================================================== */
+  const typedEl  = document.getElementById("typed-text");
+  const cursorEl = document.getElementById("cursor");
+  let charIndex  = 0;
+  let isTyping   = false;
+
+  function typeNext() {
+    if (charIndex < LETTER_TEXT.length) {
+      const ch = LETTER_TEXT[charIndex];
+      if (ch === "\n") {
+        typedEl.appendChild(document.createElement("br"));
+      } else {
+        typedEl.insertAdjacentText("beforeend", ch);
+      }
+      charIndex++;
+      setTimeout(typeNext, 45 + Math.random() * 40);
+    } else {
+      cursorEl.style.display = "none"; // hide cursor when done
+    }
+  }
+
+  // Trigger typing when letter section scrolls into view
+  const letterObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !isTyping) {
+      isTyping = true;
+      setTimeout(typeNext, 400);
+    }
+  }, { threshold: 0.25 });
+  letterObserver.observe(document.getElementById("letter-section"));
+
+  /* =====================================================
+     RELATIONSHIP TIMER
+  ===================================================== */
+  function updateTimer() {
+    const now  = new Date();
+
+    let years  = now.getFullYear()  - START_DATE.getFullYear();
+    let months = now.getMonth()     - START_DATE.getMonth();
+    let days   = now.getDate()      - START_DATE.getDate();
+
+    if (days < 0) {
+      months--;
+      const prev = new Date(now.getFullYear(), now.getMonth(), 0);
+      days += prev.getDate();
+    }
+    if (months < 0) { years--; months += 12; }
+
+    const totalSec = Math.floor((now - START_DATE) / 1000);
+    const hours    = Math.floor((totalSec % 86400) / 3600);
+    const mins     = Math.floor((totalSec % 3600)  / 60);
+    const secs     = totalSec % 60;
+
+    document.getElementById("t-years").textContent  = years;
+    document.getElementById("t-months").textContent = months;
+    document.getElementById("t-days").textContent   = days;
+    document.getElementById("t-hours").textContent  = String(hours).padStart(2,"0");
+    document.getElementById("t-mins").textContent   = String(mins).padStart(2,"0");
+    document.getElementById("t-secs").textContent   = String(secs).padStart(2,"0");
+  }
+
+  updateTimer();
+  setInterval(updateTimer, 1000);
+</script>
+</body>
+</html>
